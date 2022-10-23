@@ -19,6 +19,13 @@ public class GlobalExceptionHandler {
 		return new ResponseEntity<>(errorDetails, HttpStatus.NOT_FOUND);
 	}
 
+	@ExceptionHandler(DuplicateException.class)
+	public ResponseEntity<?> duplicateExceptionHHandling(DuplicateException exception, WebRequest request){
+		ResponseFormat errorDetails = 
+				new ResponseFormat(new Date(), exception.getMessage(), request.getDescription(false), null);
+		return new ResponseEntity<>(errorDetails, HttpStatus.CONFLICT);
+	}
+
 	@ExceptionHandler(UnauthorizedException.class)
 	public ResponseEntity<?> unauthorizedExceptionHandling(UnauthorizedException exception, WebRequest request){
 		ResponseFormat errorDetails = 

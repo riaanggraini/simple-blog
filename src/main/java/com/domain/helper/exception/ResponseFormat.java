@@ -7,9 +7,9 @@ public class ResponseFormat {
 	private Date timestamp;
 	private String message;
 	private String details;
-  private Any data;
+  private Object data;
 	
-	public ResponseFormat(Date timestamp, String message, String details,Any data) {
+	public ResponseFormat(Date timestamp, String message, String details, Object data) {
 		super();
 		this.timestamp = timestamp;
 		this.message = message;
@@ -17,7 +17,7 @@ public class ResponseFormat {
     this.data = data;
 	}
 	
-	public Any getData() {
+	public Object getData() {
     return data;
   }
   public void setData(Any data) {

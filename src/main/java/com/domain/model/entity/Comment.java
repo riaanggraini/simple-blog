@@ -3,10 +3,17 @@ package com.domain.model.entity;
 import java.io.Serializable;
 import java.sql.Date;
 
+import javax.persistence.CascadeType;
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.Size;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 @Entity
@@ -17,14 +24,25 @@ public class Comment implements Serializable {
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   private Long id;
 
-  private String content;
+  @Column(name = "comment", nullable = false)
+  @NotEmpty
+	@Size(min = 2, message = "content should have at least 2 characters")
+  private String comment;
 
+  @Column(name = "content_id", nullable = false)
+  @NotEmpty
+  private int content_id;
+
+  @Column(name = "created_at")
   private Date created_at;
   
+  @Column(name = "updated_at")
   private Date updated_at;
-
+  
+  @Column(name = "created_by")
   private int created_by;
 
+  @Column(name = "updated_by")
   private int updated_by;
 
   public int getCreated_by() {
@@ -43,6 +61,17 @@ public class Comment implements Serializable {
     this.updated_by = updated_by;
   }
 
+  @Column(name = "posted_by")
+  private int posted_by;
+
+  public int getPosted_by() {
+    return posted_by;
+  }
+
+  public void setPosted_by(int posted_by) {
+    this.posted_by = posted_by;
+  }
+
   public Long getId() {
     return id;
   }
@@ -51,12 +80,12 @@ public class Comment implements Serializable {
     this.id = id;
   }
 
-  public String getContent() {
-    return content;
+  public String getComment() {
+    return comment;
   }
 
-  public void setContent(String content) {
-    this.content = content;
+  public void setComment(String comment) {
+    this.comment = comment;
   }
 
   public Date getCreated_at() {
@@ -75,12 +104,32 @@ public class Comment implements Serializable {
     this.updated_at = updated_at;
   }
 
-  public Comment(Long id, String content, Date created_at, Date updated_at, int created_by, int updated_by) {
+  @ManyToOne
+  @JoinColumn(name = "content_id",referencedColumnName = "id", insertable = false, updatable = false)
+  private Content content;
+
+
+  @OneToOne(cascade = CascadeType.ALL)
+  @JoinColumn(name = "posted_by", referencedColumnName = "id", insertable = false, updatable = false)
+  public User user;
+
+  public User getUser() {
+    return user;
+  }
+
+  public void setUser(User user) {
+    this.user = user;
+  }
+
+  public Comment() {
+  }
+
+  public Comment(Long id, String comment, Date created_at, int content_id, Date updated_at, int created_by, int updated_by, User user) {
     this.id = id;
-    this.content = content;
+    this.comment = comment;
     this.created_by = created_by;
     this.created_at = created_at;
     this.updated_at = updated_at;
-    this.updated_by = updated_by;
+    this.user = user;
   }
 }
