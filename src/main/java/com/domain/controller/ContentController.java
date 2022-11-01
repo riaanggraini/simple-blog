@@ -2,17 +2,23 @@ package com.domain.controller;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
+
+import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.domain.DTO.PaginationDto;
+import com.domain.dto.PaginationDto;
 import com.domain.helper.exception.ResponseHandler;
 import com.domain.model.entity.Content;
 import com.domain.service.ContentService;
@@ -58,8 +64,20 @@ public class ContentController {
   };
 
   @GetMapping("/{id}")
-  public ResponseEntity getById(@PathVariable (value = "id") int id, Content content) {
-    
-    return null;
+  public ResponseEntity getById(@PathVariable (value = "id") long id, Content content) {
+    Optional<Content> contentData = contentService.getByid(id);
+    return ResponseHandler.generateResponse("Get Content Successfully", contentData);
   }
-}
+
+  @PostMapping
+  public ResponseEntity create(@Valid @RequestBody Content content) throws Exception{
+    contentService.createContent(content);
+    return ResponseHandler.generateResponse("Successfully Create Content", null);
+  }
+
+  @PutMapping("/{id}")
+  public ResponseEntity update(@PathVariable (value = "id") long id, @Valid @RequestBody Content content) {
+    Content contentData = contentService.updateContent(content, id);
+    return ResponseHandler.generateResponse("Successfully Update Content", contentData);
+  }
+};

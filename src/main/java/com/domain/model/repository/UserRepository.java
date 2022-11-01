@@ -1,5 +1,7 @@
 package com.domain.model.repository;
 
+import java.util.Optional;
+
 import javax.validation.constraints.NotBlank;
 
 import org.springframework.data.jpa.repository.JpaRepository;

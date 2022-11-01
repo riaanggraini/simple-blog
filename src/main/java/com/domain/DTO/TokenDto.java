@@ -1,4 +1,4 @@
-package com.domain.DTO;
+package com.domain.dto;
 
 public class TokenDto {
   Long user_id;

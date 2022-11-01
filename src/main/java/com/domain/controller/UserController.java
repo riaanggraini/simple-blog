@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.bind.annotation.RequestBody;
 
-import com.domain.DTO.TokenDto;
+import com.domain.dto.TokenDto;
 import com.domain.helper.exception.DuplicateException;
 import com.domain.helper.exception.ResponseHandler;
 import com.domain.model.entity.User;

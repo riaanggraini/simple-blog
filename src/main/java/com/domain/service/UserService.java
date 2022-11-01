@@ -1,5 +1,7 @@
 package com.domain.service;
 
+import java.util.Optional;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -26,6 +28,7 @@ public class UserService {
 	}	
 
   public User findUserAndValidate(User user) {
+
     User userData = userRepository.findByEmail(user.getEmail());
 
     if (userData == null) {
@@ -41,11 +44,15 @@ public class UserService {
   }
 
   public String generateAccessToken(User user) {
+
     User userData = userRepository.findByEmail(user.getEmail());
     System.out.println(userData);
 
     String Token = JwtTokenUtil.generateToken(userData);
-
     return Token;
+  }
+
+  public Optional<User> fineOneById(Long id) {
+    return userRepository.findById(id);
   }
 }

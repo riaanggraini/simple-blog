@@ -16,12 +16,11 @@ import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.Size;
-
 @Entity
 @Table(name="content")
 public class Content implements Serializable{
   @Id
-  @GeneratedValue(strategy = GenerationType.SEQUENCE)
+  @GeneratedValue(strategy = GenerationType.IDENTITY)
   private Long id;
 
   @NotEmpty
@@ -35,24 +34,11 @@ public class Content implements Serializable{
 
   private int viewed_times;
 
-  private int user_id;
-
   @Column(name = "created_at")
   private Date created_at;
   
   @Column(name = "updated_at")
   private Date updated_at;
-  
-  @Column(name = "posted_by")
-  private int posted_by;
-
-  public int getPosted_by() {
-    return posted_by;
-  }
-
-  public void setPosted_by(int posted_by) {
-    this.posted_by = posted_by;
-  }
 
   @Column(name = "updated_by")
   private int updated_by;
@@ -105,14 +91,6 @@ public class Content implements Serializable{
     this.viewed_times = viewed_times;
   }
 
-  public int getUser_id() {
-    return user_id;
-  }
-
-  public void setUser_id(int user_id) {
-    this.user_id = user_id;
-  }
-
   public Date getCreated_at() {
     return created_at;
   }
@@ -151,7 +129,6 @@ public class Content implements Serializable{
     this.title = title;
     this.content = content;
     this.viewed_times = viewed_times;
-    this.user_id = user_id;
     this.user = user;
     this.created_at = created_at;
     this.updated_at = updated_at;

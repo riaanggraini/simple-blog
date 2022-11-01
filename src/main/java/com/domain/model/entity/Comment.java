@@ -29,10 +29,6 @@ public class Comment implements Serializable {
 	@Size(min = 2, message = "content should have at least 2 characters")
   private String comment;
 
-  @Column(name = "content_id", nullable = false)
-  @NotEmpty
-  private int content_id;
-
   @Column(name = "created_at")
   private Date created_at;
   
@@ -60,18 +56,6 @@ public class Comment implements Serializable {
   public void setUpdated_by(int updated_by) {
     this.updated_by = updated_by;
   }
-
-  @Column(name = "posted_by")
-  private int posted_by;
-
-  public int getPosted_by() {
-    return posted_by;
-  }
-
-  public void setPosted_by(int posted_by) {
-    this.posted_by = posted_by;
-  }
-
   public Long getId() {
     return id;
   }
@@ -116,7 +100,7 @@ public class Comment implements Serializable {
   public User getUser() {
     return user;
   }
-
+  
   public void setUser(User user) {
     this.user = user;
   }
